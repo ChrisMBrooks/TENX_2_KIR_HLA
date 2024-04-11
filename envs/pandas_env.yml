@@ -1,0 +1,6 @@
+name: pandas_env
+channels:
+  - defaults
+dependencies:
+  - pandas
+  - numpy
