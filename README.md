@@ -63,12 +63,19 @@ One optional File
 The ``pipeline.config.json`` file is a simple high level JSON file containing configuration settings and metadata. The following key-item pairs are required: 
 
 * ``project`` is an input string, and represents the project name to be used by snakemake, e.g. ``TENX_2_KIR_HLA_TEST``. 
+
 * ``read_type`` is an input string, either ``single`` or ``double`` and is a flag to indicate the sequencing method (I believe 10X 3' is often single and 5' is paired.).
+
 * ``barcode_filename``  is an input string, and is the path name to the barcode csv file discussed above, e.g. ``input/master_barcodes.csv``
+
 * ``reference_genome``is the reference genome used throughout. It will be pulled form the 10X website, so the name must match exactly, e.g. ``refdata-gex-GRCh38-2024-A``.
+
 * ``cellranger_version`` is the version of cellranger to be used. It will also be pulled from the 10X website, e.g. ``cellranger-8.0.0``.
+
 * ``10X_id`` is an input string, and is the user 10x user id as discussed above. 
+
 * ``10X_key`` is an input string, and is the user 10x API Key/ API secret as discussed above. 
+
 * ``10X_exp`` is an input string, and is the expirary date assigned by 10x when a user visits the webpage.  
 
 ## Aggregated Barcodes CSV
@@ -100,7 +107,7 @@ fastqs,sample,library_type
 
 The file should be prepared according to the definitions provided on the [10X Genomics Website](https://www.10xgenomics.com/support/software/cell-ranger/latest/analysis/running-pipelines/cr-feature-bc-analysis). 
 
- > NB1 - The ``batch id`` must match the entry for ``batch_id`` in the ``master_library_definitions.csv``. 
+ > NB1 - The ``sample`` must match the entry for ``batch_id`` in the ``master_library_definitions.csv``. 
  > NB2 - Although you can rename the prefix of a fastq file, Cell Ranger requires that the suffix of is left in tact, e.g. must end with ``S1_L004_R1_001.fastq.gz`` or equivalent.
 
 # Run
