@@ -8,7 +8,7 @@ rule retrieve_optitype:
         output_script = "software/optitype/OptiTypePipeline.py" 
     shell:
         """
-            git clone -C {params.output_dir} {params.url}
-            yes | cp -rf {params.modified_script} {output.output_script}
-
+            git clone "{params.url}" {params.output_dir}
+            rm {output.output_script}
+            cp {params.modified_script} {output.output_script}
         """

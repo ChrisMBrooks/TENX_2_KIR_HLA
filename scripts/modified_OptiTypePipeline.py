@@ -261,10 +261,12 @@ if __name__ == '__main__':
     MAPPING_REF = {'gen': os.path.join(this_dir, 'data/hla_reference_dna.fasta'),
                    'nuc': os.path.join(this_dir, 'data/hla_reference_rna.fasta')}
     
+    # ---------------------------------- CMB 30 APR 2024 ---------------------------
     # Override Command so theat razers3 on the path is used instead. 
     #COMMAND = "-i 97 -m 99999 --distance-range 0 -pa -tc %d -o %s %s %s --vverbose"
     #MAPPING_CMD = config.get("mapping", "razers3") + " " + COMMAND
-    
+    # ---------------------------------- CMB 30 APR 2024 ---------------------------
+
     MAPPING_CMD = "razers3 -i 97 -m 99999 --distance-range 0 -pa -tc %d -o %s %s %s" 
     
     date = datetime.datetime.fromtimestamp(time.time()).strftime('%Y_%m_%d_%H_%M_%S')

@@ -1,9 +1,11 @@
 {
     "project":"TENX_TEST_PROJECT",
     "barcode_filename":"input/master_barcodes.csv",
+    "libraries_filename":"input/master_library_definitions.csv",
     "reference_genome":"refdata-gex-GRCh38-2024-A",
     "cellranger_version":"cellranger-8.0.0",
     "10X_id":"YOUR-API-KEY",
     "10X_key":"YOUR-API-SECRET",
-    "10X_exp":"NUMERIAL_EXPIRATION_DATE"
+    "10X_exp":"NUMERIAL_EXPIRATION_DATE",
+    "read_type":"single"
 }

@@ -9,9 +9,10 @@ rule retrieve_cell_ranger_bin:
         ),
         output_dir = "software"
     output:
-        output_bin = "software/{bin}/bin/cellranger".format(bin=CELL_RANGER_VER)
+        output_bin = "software/{bin}/cellranger".format(bin=CELL_RANGER_VER)
     shell:
         """
             curl --output {params.interim_tar} "{params.url}"
             tar -xzf {params.interim_tar} -C {params.output_dir}
+            chmod +x {output.output_bin}
         """

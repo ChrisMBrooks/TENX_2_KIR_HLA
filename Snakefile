@@ -1,10 +1,18 @@
-# snakemake --cores 8 --use-conda --conda-frontend conda --rerun-incomplete --until "parse_cell_ranger_libraries"
-# snakemake --cores 8 --use-conda --conda-frontend conda --rerun-incomplete
-# snakemake --cores 8 --use-conda --conda-frontend conda --dry-run
-# snakemake --cores 8 --use-conda --conda-frontend conda --keep-incomplete
-#--printshellcmds
+import json
+import os
+import sys
+import pandas as pd
 
-import json, os, sys
+def load_sample_ids(barcode_filename:str):
+    barcodes = pd.read_csv(barcode_filename, index_col=None)
+    required_columns = ["batch_id", "sample_id"]
+    barcodes = barcodes[required_columns]
+    barcodes = barcodes.drop_duplicates(ignore_index=True)
+    batch_ids = barcodes["batch_id"].tolist()
+    sample_ids = barcodes["sample_id"].tolist()
+
+    return batch_ids, sample_ids
+
 def load_pipeline_config():
     try:
         full_path = os.path.join(os.getcwd(), "pipeline.config.json")
@@ -17,31 +25,31 @@ def load_pipeline_config():
 
 CONFIG = load_pipeline_config()
 PROJECT = CONFIG["project"]
-MASTER_BARCODE_FILENAME = CONFIG["barcode_filename"]
+
+os.makedirs("output/{project}/logs".format(project=PROJECT), exist_ok=True)
+
+BATCH_IDS, SAMPLE_IDS = load_sample_ids(
+    barcode_filename = CONFIG["barcode_filename"]
+)
+
+LIBRARIES_FILENAME = CONFIG["libraries_filename"]
+
 REF_GENOME = CONFIG["reference_genome"]
 CELL_RANGER_VER = CONFIG["cellranger_version"]
 TENX_ID = CONFIG["10X_id"]
 TENX_KEY = CONFIG["10X_key"]
 TENX_EXP = CONFIG["10X_exp"]
-BATCH_IDS = ["2292GEX_1", "2292GEX_2"]
-SAMPLE_IDS = ["2292GEX_1", "2292GEX_2"]
+READ_TYPE = CONFIG["read_type"].lower()
 
-rule kir_genotype_sc_rna_seq:
+rule kir_hla_genotype_sc_rna_seq:
     input:
-        results = expand("output/{project}/t1k/kir/T1K_{batch_id}_{sample_id}_genotype.tsv", zip,
+        kir_results = expand("output/{project}/t1k/kir/T1K_{batch_id}__{sample_id}_genotype.tsv", zip,
             project=[PROJECT]*len(BATCH_IDS), 
             batch_id=BATCH_IDS,
             sample_id=SAMPLE_IDS
-        )
-    shell:
-        """
-            echo "Complete!"
-        """
-
-rule hla_genotype_sc_rna_seq:
-    input:
-        results = expand("output/{project}/optitype/{batch_id}_{sample_id}_hla_typing_result.tsv", zip,
-            project=PROJECT, 
+        ),
+        hla_results = expand("output/{project}/optitype/{batch_id}__{sample_id}_hla_typing_result.tsv", zip,
+            project=[PROJECT]*len(BATCH_IDS), 
             batch_id=BATCH_IDS,
             sample_id=SAMPLE_IDS
         )
@@ -52,13 +60,9 @@ rule hla_genotype_sc_rna_seq:
 
 # Aggregate Results
 # Pull / scrape allelle-freq.net
-# Compute summary Stats 
-
-include: "rules/retrieve_ipd_ref.smk"
-include: "rules/retrieve_subset_bam.smk"
-include: "rules/retrieve_cell_ranger_bin.smk"
-include: "rules/retrieve_reference_genome.smk"
-include: "rules/retrieve_optitype.smk"
+# Compute summary Stats
+ 
+# Load Dependent Rules 
 include: "rules/subset_cell_ranger_libraries.smk"
 include: "rules/align_sc_rna_seq.smk"
 include: "rules/subset_alignment_map.smk"
@@ -66,4 +70,3 @@ include: "rules/subset_barcodes.smk"
 include: "rules/subset_alignment_map_by_chr.smk"
 include: "rules/hla_type_sc_rna_seq.smk"
 include: "rules/kir_type_sc_rna_seq.smk"
-

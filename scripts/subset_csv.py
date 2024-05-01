@@ -45,7 +45,7 @@ def parse_arguments():
     )
 
     required.add_argument(
-        "-h",
+        "-hd",
         "--header",
         help="Include header in output file.",
         required=False,
@@ -74,8 +74,8 @@ def main():
     # Parse Inputs
     args = parse_arguments()
     input_filename = args["input_file"]
-    columns_of_interest = args["subset_column"].split(",")
-    column_values = args["column_value"].split(",")
+    columns_of_interest = args["subset_columns"].split(",")
+    column_values = args["column_values"].split(",")
     output_prefix = args["output_prefix"]
     output_dir = args["output_dir"]
     include_header = args["header"]
@@ -101,7 +101,7 @@ def main():
 
     # Format output filename
     filename_template = "{prefix}_{joined_keys}.csv"
-    joined_keys = "_".join(column_values)
+    joined_keys = "__".join(column_values)
     filename = filename_template.format(
         prefix = output_prefix,
         joined_keys = joined_keys

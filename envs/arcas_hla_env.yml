@@ -1,0 +1,7 @@
+name: arcas_hla_env
+channels:
+  - defaults
+  - bioconda
+dependencies:
+  - arcas-hla
+  - python>=3.11.3 

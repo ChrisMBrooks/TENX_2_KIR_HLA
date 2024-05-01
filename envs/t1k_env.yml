@@ -1,7 +1,5 @@
 name: t1k_env
 channels:
-  - defaults
   - bioconda
 dependencies:
   - t1k
-  - perl

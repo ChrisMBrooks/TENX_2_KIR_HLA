@@ -1,6 +1,6 @@
 rule subset_cell_ranger_libraries:
     input: 
-        master_file = "input/master_library_definitions.csv",
+        master_file = LIBRARIES_FILENAME,
         script_path = "scripts/subset_csv.py"
     params:
         subset_column = "sample",

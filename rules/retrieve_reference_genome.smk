@@ -8,7 +8,7 @@ rule retrieve_reference_genome:
         output_json = "reference_data/{folder_name}/reference.json".format(folder_name=REF_GENOME)
     shell:
         """ 
-            curl --output {output.interim_tar} {params.url}
+            curl --output {output.interim_tar} "{params.url}"
             tar -xzf {output.interim_tar} -C {params.output_dir}
         """
 

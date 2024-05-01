@@ -1,0 +1,53 @@
+__default__:
+  time: "02:00:00"
+  nodes: 1
+  cpus: 1
+  mem: "10gb"
+  name: "output/{rule}.log"
+  tmpdir: "$TMPDIR"
+  
+align_sc_rna_seq:
+  nodes: 1
+  cpus: 16
+  mem: "64gb"
+  time: "48:00:00"
+  name: "{rule}"
+  logs: "output/{wildcards.project}/logs/{rule}_{wildcards.batch_id}_{wildcards.sample_id}.log"
+  tmpdir: "$TMPDIR"
+
+hla_type_sc_rna_seq:
+  nodes: 1
+  cpus: 12
+  mem: "64gb"
+  time: "72:00:00"
+  name: "{rule}"
+  logs: "output/{wildcards.project}/logs/{rule}_{wildcards.batch_id}_{wildcards.sample_id}.log"
+  tmpdir: "$TMPDIR"
+  
+kir_type_sc_rna_seq:
+  nodes: 1
+  cpus: 16
+  mem: "32gb"
+  time: "02:00:00"
+  name: "{rule}"
+  logs: "output/{wildcards.project}/logs/{rule}_{wildcards.batch_id}_{wildcards.sample_id}.log"
+  tmpdir: "$TMPDIR"
+  
+subset_alignment_by_chr:
+  nodes: 1
+  cpus: 16
+  mem: "24gb"
+  time: "02:00:00"
+  name: "{rule}"
+  logs: "output/{wildcards.project}/logs/{rule}_{wildcards.batch_id}_{wildcards.sample_id}.log"
+  tmpdir: "$TMPDIR"
+
+subset_alignment_map:
+  nodes: 1
+  cpus: 16
+  mem: "32gb"
+  time: "08:00:00"
+  name: "{rule}"
+  logs: "output/{wildcards.project}/logs/{rule}_{wildcards.batch_id}_{wildcards.sample_id}.log"
+  tmpdir: "$TMPDIR"
+

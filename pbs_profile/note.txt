@@ -1,0 +1,2 @@
+Note: Snakemake uses a YAML-formatted configuration file to retrieve cluster submission parameters; 
+snakemake looks for a directory with the name of our profile ("pbs_profile") containing a ‘config.yaml’ file.
