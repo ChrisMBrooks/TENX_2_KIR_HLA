@@ -108,6 +108,7 @@ fastqs,sample,library_type
 The file should be prepared according to the definitions provided on the [10X Genomics Website](https://www.10xgenomics.com/support/software/cell-ranger/latest/analysis/running-pipelines/cr-feature-bc-analysis). 
 
  > NB1 - The ``sample`` must match the entry for ``batch_id`` in the ``master_library_definitions.csv``. 
+ 
  > NB2 - Although you can rename the prefix of a fastq file, Cell Ranger requires that the suffix of is left in tact, e.g. must end with ``S1_L004_R1_001.fastq.gz`` or equivalent.
 
 # Run
