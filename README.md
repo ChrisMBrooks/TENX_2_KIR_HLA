@@ -84,7 +84,7 @@ AAACCCAAGTACAACA-1,1234GEX_1,1234GEX_1
 
 ## Aggregated Library Definitions
 
-The ``master_library_definitions.csv`` is an aggregated csv file containing all library definitions (batch_ids and sample_ids, e.g.: 
+The ``master_library_definitions.csv`` is an aggregated csv file containing all library definitions, 1 per run/ batch, e.g.: 
 
 ```csv
 fastqs,sample,library_type
@@ -92,13 +92,22 @@ fastqs,sample,library_type
 /absolute/path/to/your/fastqs,GEX_BATCH_2,Gene Expression
 ```
 
+* The ``fastqs`` csv column contains the full path (not relative) for the directory containing the relevant fastq files. Note that all fastqs, across multiple runs can be in the same directory.
+
+* The ``sample`` csv column contains the prefix of the pertinent fastq files and must match the ``batch_id`` identifier outlined in the ``master_barcodes.csv`` file, e.g. the ``GEX_BATCH_1_5pGEX`` portion of ``GEX_BATCH_1_5pGEX_S1_L004_R1_001.fastq.gz`` and the ``GEX_BATCH_1_FB`` portion of ``GEX_BATCH_1_FB_S1_L004_R1_001.fastq.gz``
+
+* The ``library_type`` csv column contains the type of scRNA-Seq run, be it ``Gene Expression``, ``Antibody Capture`` or ``Antigen Capture`` this is typically identified from the suffix of the fastq file, e.g.: 5pGEX_S1_L004_R1_001, FB_S1_L004_R1_001. 
+
 The file should be prepared according to the definitions provided on the [10X Genomics Website](https://www.10xgenomics.com/support/software/cell-ranger/latest/analysis/running-pipelines/cr-feature-bc-analysis). 
 
- > NB - Resource requirements for individual snakemake rules can be adjusted in the ``cluster_config.yml`` file. 
+ > NB1 - The ``batch id`` must match the entry for ``batch_id`` in the ``master_library_definitions.csv``. 
+ > NB2 - Although you can rename the prefix of a fastq file, Cell Ranger requires that the suffix of is left in tact, e.g. must end with ``S1_L004_R1_001.fastq.gz`` or equivalent.
+
 # Run
 ```sh
 qsub job_smk_tenx_2_kir_hla.pbs
 ```
+ > NB - Resource requirements for individual snakemake rules can be adjusted in the ``cluster_config.yml`` file. 
 
 # Outputs
 
