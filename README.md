@@ -132,6 +132,8 @@ qsub job_smk_tenx_2_kir_hla.pbs
 
 Two output primary files are produced by the TENX_2_KIR_HLA pipeline, ``output/{project}/kir_genotyping_results.csv`` and ``output/{project}/kir_genotyping_results.csv`` each containing the pertinent genotyping results from T1K and Optitype, respectively, e.g.:
 
+* ``output/{project}/kir_genotyping_results.csv``:
+
 ```csv
 ,kir_gene,allele_count,abundance,quality_score,batch_id,sample_id
 0,KIR2DL1,2,358.387208,60,2292GEX_1,2292GEX_1
@@ -140,6 +142,8 @@ Two output primary files are produced by the TENX_2_KIR_HLA pipeline, ``output/{
 ```
 
  > NB - The csv columns are defined in the original [T1K publication](https://doi.org/10.1101/gr.277585.122). 
+
+* ``output/{project}/kir_genotyping_results.csv``:
 
 ```csv
 ,A1,A2,B1,B2,C1,C2,Reads,Objective,batch_id,sample_id
