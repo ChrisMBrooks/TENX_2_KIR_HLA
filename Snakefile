@@ -89,6 +89,16 @@ include: "rules/subset_alignment_map_by_chr.smk"
 include: "rules/hla_type_sc_rna_seq.smk"
 include: "rules/kir_type_sc_rna_seq.smk"
 
+# Set-up Rules
+include: "rules/retrieve_t1k.smk"
+include: "rules/retrieve_gencode_ref.smk"
+include: "rules/retrieve_ipd_kir_ref.smk"
+include: "rules/retrieve_ipd_hla_ref.smk"
+include: "rules/retrieve_subset_bam.smk"
+include: "rules/retrieve_cell_ranger_bin.smk"
+include: "rules/retrieve_reference_genome.smk"
+include: "rules/retrieve_optitype.smk"
+
 localrules: all, kir_hla_genotype_sc_rna_seq, subset_alignment_map, subset_barcodes
 
 # --- Future Additions ---

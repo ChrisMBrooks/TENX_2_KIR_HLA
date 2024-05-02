@@ -15,3 +15,4 @@ snakemake --profile pbs_profile  --use-conda --conda-frontend conda --dry-run
 # snakemake --cores 16 --use-conda --conda-frontend conda --dry-run
 # snakemake --cores 16 --use-conda --conda-frontend conda --keep-incomplete
 # snakemake --cores 16 --use-conda --conda-frontend conda--printshellcmds
+# snakemake --forceall --rulegraph | dot -Tpng > docs/rule_graph.png

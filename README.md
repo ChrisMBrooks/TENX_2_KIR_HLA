@@ -1,9 +1,20 @@
 # KIR and HLA Typing for scRNA-Seq (TENX_2_KIR_HLA)
-## _A Snakemake Pipeline to Run on an HPC (PBSPro)_
+## _A Snakemake Pipeline to Run on the Imperial HPC (PBSPro)_
 
-**DISCLAIMER -- THIS PROJECT IS A WORK IN PROGRESS. CURRENTLY UNDERDOING DEBUGGING.**
+## Authors
+* Christopher Michael Brooks ([@chrismbrooks](https://github.com/chrismbrooks))
 
-# Pipeline Setup
+# Workflow Overview
+
+![Pipeline Workflow info](./docs/rule_graph.png)
+
+# Table of Contents
+1. [Setup](#setup)
+2. [Input](#inputs)
+3. [Run](#run)
+3. [Output](#output)
+
+# Setup
 To download and configure the pipeline, run the following command:
 
 ```sh
@@ -49,7 +60,7 @@ Next, run the following set-up commands:
         "software/t1k/run-t1k"
 ```
 
-# Inputs
+# Input
 Three main input files must be configured before the pipeline can be run: 
 * ``pipeline.config.json``
 * ``input/master_barcodes.csv``
@@ -117,7 +128,7 @@ qsub job_smk_tenx_2_kir_hla.pbs
 ```
  > NB - Resource requirements for individual snakemake rules can be adjusted in the ``cluster_config.yml`` file. 
 
-# Outputs
+# Output
 
 Two output primary files are produced by the TENX_2_KIR_HLA pipeline, ``output/{project}/kir_genotyping_results.csv`` and ``output/{project}/kir_genotyping_results.csv`` each containing the pertinent genotyping results from T1K and Optitype, respectively, e.g.:
 
@@ -137,6 +148,3 @@ Two output primary files are produced by the TENX_2_KIR_HLA pipeline, ``output/{
 ```
 
  > NB - The csv columns are defined in the original [Optitype publication](https://doi.org/10.1093/bioinformatics/btu548). 
-
-
-**DISCLAIMER -- THIS PROJECT IS A WORK IN PROGRESS. CURRENTLY UNDERDOING DEBUGGING.**
