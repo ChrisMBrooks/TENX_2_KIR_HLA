@@ -95,7 +95,7 @@ def main():
 
     # Load, Consolidate, Export HLA Results
     hla_results = load_hla_results(input_dir=input_hla_dir)
-    output_filename = os.path.join(output_dir, "hla_genotyping_results.csv.csv")
+    output_filename = os.path.join(output_dir, "hla_genotyping_results.csv")
     hla_results.to_csv(output_filename)
 
 try:
