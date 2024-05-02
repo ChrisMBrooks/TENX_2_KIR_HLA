@@ -41,6 +41,16 @@ TENX_KEY = CONFIG["10X_key"]
 TENX_EXP = CONFIG["10X_exp"]
 READ_TYPE = CONFIG["read_type"].lower()
 
+rule all:
+    input:
+        hla_results = expand("output/{project}/hla_genotyping_results.csv", project=PROJECT),
+        kir_results = expand("output/{project}/kir_genotyping_results.csv", project=PROJECT)
+    shell:
+        """
+            echo "Complete!"
+        
+        """
+
 rule kir_hla_genotype_sc_rna_seq:
     input:
         kir_results = expand("output/{project}/t1k/kir/T1K_{batch_id}__{sample_id}_genotype.tsv", zip,
@@ -52,15 +62,23 @@ rule kir_hla_genotype_sc_rna_seq:
             project=[PROJECT]*len(BATCH_IDS), 
             batch_id=BATCH_IDS,
             sample_id=SAMPLE_IDS
-        )
+        ),
+        script_path = "scripts/consolidate_results.py"
+    params:
+        input_hla_dir = "output/{project}/optitype",
+        input_kir_dir = "output/{project}/t1k/kir",
+        output_dir = "output/{project}"
+    output:
+        hla_results = "output/{project}/hla_genotyping_results.csv",
+        kir_results = "output/{project}/kir_genotyping_results.csv"
+    conda: "envs/pandas_env.yml"
     shell:
         """
-            echo "Complete!"
+            python {input.script_path} \
+            --input_hla_dir {params.input_hla_dir} \
+            --input_kir_dir {params.input_kir_dir} \
+            --output_dir {params.output_dir} \
         """
-
-# Aggregate Results
-# Pull / scrape allelle-freq.net
-# Compute summary Stats
  
 # Load Dependent Rules 
 include: "rules/subset_cell_ranger_libraries.smk"
@@ -70,3 +88,9 @@ include: "rules/subset_barcodes.smk"
 include: "rules/subset_alignment_map_by_chr.smk"
 include: "rules/hla_type_sc_rna_seq.smk"
 include: "rules/kir_type_sc_rna_seq.smk"
+
+localrules: all, kir_hla_genotype_sc_rna_seq, subset_alignment_map, subset_barcodes
+
+# --- Future Additions ---
+# 1.0 Pull / scrape allelle-freq.net
+# 2.0 Compute summary Stats
